@@ -12,13 +12,18 @@ end
 require 'rake'
 
 require 'jeweler'
+require_relative './lib/testrail/version'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "testrail"
+  gem.version = Testrail::VERSION
   gem.homepage = "http://github.com/kris-at-tout/testrail"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "A Ruby client library for TestRail"
+  gem.description = <<-EOS
+        A Ruby client that tries to match TestRail's API one-to-one, while still
+        providing an idiomatic interface.
+      EOS
   gem.email = "kris@tout.com"
   gem.authors = ["Kristine Robison"]
   # dependencies defined in Gemfile
@@ -31,7 +36,7 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
 
-RSpec::Core::RakeTask.new(:rcov) do |spec|
+RSpec::Core::RakeTask.new(:simplecov) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
   spec.rcov = true
 end
