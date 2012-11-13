@@ -17,14 +17,14 @@ Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "testrail"
   gem.version = Testrail::VERSION
-  gem.homepage = "http://github.com/kris-at-tout/testrail"
+  gem.homepage = "http://github.com/krobi64/testrail"
   gem.license = "MIT"
   gem.summary = "A Ruby client library for TestRail"
   gem.description = <<-EOS
         A Ruby client that tries to match TestRail's API one-to-one, while still
         providing an idiomatic interface.
       EOS
-  gem.email = "kris@tout.com"
+  gem.email = "krobison@gmail.com"
   gem.authors = ["Kristine Robison"]
   # dependencies defined in Gemfile
 end

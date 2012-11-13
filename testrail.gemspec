@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Kristine Robison"]
   s.date = "2012-11-13"
   s.description = "        A Ruby client that tries to match TestRail's API one-to-one, while still\n        providing an idiomatic interface.\n"
-  s.email = "kris@tout.com"
+  s.email = "krobison@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -39,9 +39,10 @@ Gem::Specification.new do |s|
     "spec/lib/testrail/request_spec.rb",
     "spec/lib/testrail/response_spec.rb",
     "spec/lib/testrail/version_spec.rb",
-    "spec/spec_helper.rb"
+    "spec/spec_helper.rb",
+    "testrail.gemspec"
   ]
-  s.homepage = "http://github.com/kris-at-tout/testrail"
+  s.homepage = "http://github.com/krobi64/testrail"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
