@@ -11,29 +11,35 @@ describe Testrail::Request do
       an_object: {
         param1: 'a value',
         param2: 'another value',
-        param3: 42
+        param3: '42'
       }
     }
   }
-  let(:post_options) { { headers: headers, body: body} }
+  let(:post_options) { { headers: headers.merge({"Content-Type" => "application/x-www-form-urlencoded"}), body: body} }
   let(:get_options)  { { headers: headers} }
 
   shared_examples_for "a correct HTTPclient messenger" do
     describe "interface" do
       before do
-        stub_request(:any, url_prefix + key).to_return(body: JSON.generate({result: true, an_object: 'abc'}))
-        stub_request(:any, url_prefix + '/789' + key).to_return(body: JSON.generate({result: true, an_object: 'abc'}))
-        stub_request(:any, url_prefix + '/789/a4g8' + key).to_return(body: JSON.generate({result: true, an_object: 'abc'}))
+        stub_request(:any, url_prefix + key).
+          with(action_options).
+          to_return(body: JSON.generate({result: true, an_object: 'abc'}))
+        stub_request(:any, url_prefix + '/789' + key).
+          with(action_options).
+          to_return(body: JSON.generate({result: true, an_object: 'abc'}))
+        stub_request(:any, url_prefix + '/789/a4g8' + key).
+          with(action_options).
+          to_return(body: JSON.generate({result: true, an_object: 'abc'}))
       end
 
       it "returns a Testrail::Response object" do
-        result = subject.send(method, command, nil, action_options)
+        result = subject.send(method, command, action_options)
         result.should be_instance_of Testrail::Response
       end
 
       context "with no ids" do
         it "should call the HTTPclient with the correct parameters" do
-          subject.send(method, command, nil, action_options)
+          subject.send(method, command, action_options)
           WebMock.should have_requested(method, url_prefix + key)
         end
       end

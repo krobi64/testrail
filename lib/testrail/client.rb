@@ -127,7 +127,7 @@ module Testrail
     end
 
     def get_projects(opts = {})
-      request.get('get_projects', nil, opts)
+      request.get('get_projects', opts)
     end
 
 
