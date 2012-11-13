@@ -55,7 +55,7 @@ describe Testrail::Client do
       end
 
       it "should return Testrail::Response with a valid body hash" do
-        @response.body.should eq({"an_object"  => "abc"})
+        @response.payload.should eq({"an_object"  => "abc"})
       end
     end
   end

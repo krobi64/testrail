@@ -36,11 +36,11 @@ describe Testrail::Response do
         @response4.error.should eq('Forbidden')
       end
 
-      it "does not assign anything to @body" do
-        @response1.body.should be_nil
-        @response2.body.should be_nil
-        @response3.body.should be_nil
-        @response4.body.should be_nil
+      it "does not assign anything to @payload" do
+        @response1.payload.should be_nil
+        @response2.payload.should be_nil
+        @response3.payload.should be_nil
+        @response4.payload.should be_nil
       end
     end
 
@@ -57,8 +57,8 @@ describe Testrail::Response do
         @response.error.should be_nil
       end
 
-      it "does not assign anything to @body" do
-        @response.body.should be_nil
+      it "does not assign anything to @payload" do
+        @response.payload.should be_nil
       end
     end
 
@@ -75,8 +75,8 @@ describe Testrail::Response do
         @response.error.should be_nil
       end
 
-      it "assigns the response body object to @body" do
-        @response.body.should eq({"some_obj" => {"id" => 1, "msg" => 'some_msg'}})
+      it "assigns the response body object to @payload" do
+        @response.payload.should eq({"some_obj" => {"id" => 1, "msg" => 'some_msg'}})
       end
     end
 
@@ -93,8 +93,8 @@ describe Testrail::Response do
         @response.error.should eq('Some error')
       end
 
-      it "does not assign anything to @body" do
-        @response.body.should be_nil
+      it "does not assign anything to @payload" do
+        @response.payload.should be_nil
       end
     end
 
@@ -111,8 +111,8 @@ describe Testrail::Response do
         @response.error.should =~ /Malformed JSON response/
       end
 
-      it "does not assign anything to @body" do
-        @response.body.should be_nil
+      it "does not assign anything to @payload" do
+        @response.payload.should be_nil
       end
     end
   end

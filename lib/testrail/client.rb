@@ -1,6 +1,7 @@
 module Testrail
   class Client
-    attr_accessor :request
+
+    attr_reader :request
 
     def initialize
       @request = Testrail::Request
@@ -12,7 +13,7 @@ module Testrail
     end
 
     def add_result_for_case(run_id, case_id, opts = {})
-      request.post('add_result_for_case', [run_id, case_id], opts)
+      request.post('add_result_for_case', run_id, case_id, opts)
     end
 
     # Test - see http://docs.gurock.com/testrail-api/reference-tests
@@ -76,7 +77,7 @@ module Testrail
     end
 
     def get_runs(project_id, plan_id, opts = {})
-      request.get('get_runs', [project_id, plan_id], opts)
+      request.get('get_runs', project_id, plan_id, opts)
     end
 
     def add_run(suite_id, opts = {})
