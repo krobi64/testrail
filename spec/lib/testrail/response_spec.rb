@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 class TestResponse
-  attr_accessor :body
-  def initialize(opts = nil)
+  attr_accessor :body, :code
+  def initialize(code, opts = nil)
+    @code = code
     unless opts.nil?
       @body = JSON.generate(opts) rescue opts
     end
@@ -13,61 +14,105 @@ describe Testrail::Response do
   subject { Testrail::Response }
 
   describe "initialize" do
-    before do
-      @response1 = subject.new
-      @response2 = subject.new(TestResponse.new( result: true, some_obj: {id: 1, msg: 'some_msg'}))
-      @response3 = subject.new(TestResponse.new( result: false, error: 'Some error'))
-      @response4 = subject.new(TestResponse.new('something_with_malformed_response'))
-    end
-
-    context "success" do
-      it "assigns nothing to @success if the response.body is nil" do
-        @response1.success.should be_nil
+    context "with unsuccessful server response" do
+      before do
+        @response1 = subject.new(TestResponse.new('500'))
+        @response2 = subject.new(TestResponse.new('404'))
+        @response3 = subject.new(TestResponse.new('401'))
+        @response4 = subject.new(TestResponse.new('403'))
       end
-    
-      it "assigns the result method to @success" do
-        @response2.success.should be_true
+
+      it "assigns false to @success" do
+        @response1.success.should be_false
+        @response2.success.should be_false
         @response3.success.should be_false
-      end
-
-      it "assigns false to @success if the response body isn't valid JSON" do
         @response4.success.should be_false
       end
-    end
 
-    context "error" do
-      it "should be nil if the response body is nil" do
-        @response1.error.should be_nil
+      it "assigns the code definition to @error" do
+        @response1.error.should eq('InternalServerError')
+        @response2.error.should eq('NotFound')
+        @response3.error.should eq('Unauthorized')
+        @response4.error.should eq('Forbidden')
       end
 
-      it "should be nil if the result value in the response body is true" do
-        @response2.error.should be_nil
-      end
-
-      it "should contain the error message returned in the body if result is false" do
-        @response3.error.should eq('Some error')
-      end
-
-      it "should assign a Malformed JSON error if the response body isn't valid JSON" do
-        @response4.error.should =~ /Malformed JSON response/
-      end
-    end
-
-    context "body" do
-      it "should be nil if the response body is nil" do
+      it "does not assign anything to @body" do
         @response1.body.should be_nil
-      end
-
-      it "should be nil if the response body result is false" do
+        @response2.body.should be_nil
         @response3.body.should be_nil
-      end
-
-      it "should be set to the response body object if the result is true" do
-        @response2.body.should eq({"some_obj" => {"id" => 1, "msg" => 'some_msg'}})
-      end
-
-      it "should be nil if the response body isn't valid JSON" do
         @response4.body.should be_nil
+      end
+    end
+
+    context "with successful response, but no body" do
+      before do
+        @response = subject.new(TestResponse.new(200))
+      end
+
+      it "does not assign anything to @success" do
+        @response.success.should be_nil
+      end
+    
+      it "does not assign anything to @error" do
+        @response.error.should be_nil
+      end
+
+      it "does not assign anything to @body" do
+        @response.body.should be_nil
+      end
+    end
+
+    context "with successful response, including a body" do
+      before do
+        @response = subject.new(TestResponse.new(200, result: true, some_obj: {id: 1, msg: 'some_msg'}))
+      end
+
+      it "assigns true to @success" do
+        @response.success.should be_true
+      end
+
+      it "does not assign anything to @error" do
+        @response.error.should be_nil
+      end
+
+      it "assigns the response body object to @body" do
+        @response.body.should eq({"some_obj" => {"id" => 1, "msg" => 'some_msg'}})
+      end
+    end
+
+    context "with the server successfully sending back an error" do
+      before do
+        @response = subject.new(TestResponse.new(200, result: false, error: 'Some error'))
+      end
+
+      it "assigns false to @success" do
+        @response.success.should be_false
+      end
+
+      it "assigns the returned error message to @error" do
+        @response.error.should eq('Some error')
+      end
+
+      it "does not assign anything to @body" do
+        @response.body.should be_nil
+      end
+    end
+
+    context "with the server returning an invalid JSON object" do
+      before do
+        @response = subject.new(TestResponse.new(200, 'something_with_malformed_response'))
+      end
+
+      it "assigns false to @success" do
+        @response.success.should be_false
+      end
+
+      it "assigns a Malformed JSON error message to @error" do
+        @response.error.should =~ /Malformed JSON response/
+      end
+
+      it "does not assign anything to @body" do
+        @response.body.should be_nil
       end
     end
   end
