@@ -9,9 +9,11 @@ describe Testrail::Request do
   let(:body) {
     {
       body: {
-        param1: 'a value',
-        param2: 'another value',
-        param3: 42
+        an_object: {
+          param1: 'a value',
+          param2: 'another value',
+          param3: 42
+        }
       }
     }
   }

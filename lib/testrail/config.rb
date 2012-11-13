@@ -19,7 +19,9 @@ module Testrail
     end
 
     def default_config
-      @headers = { accept: "application/json" }
+      @headers = {
+        "Accept" => "application/json"
+      }
       @server = "https://example.testrail.com"
       @api_path = "/index.php?/miniapi/"
       @api_key = nil
