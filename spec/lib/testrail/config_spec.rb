@@ -43,4 +43,7 @@ describe Testrail do
       Testrail.config.should be_instance_of(Testrail::Config)
     end
   end
+  after do
+    Testrail.configure
+  end
 end
