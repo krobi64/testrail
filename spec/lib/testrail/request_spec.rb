@@ -5,19 +5,18 @@ describe Testrail::Request do
   let(:command) { 'a_command' }
   let(:url_prefix) { Testrail.config.server + Testrail.config.api_path + command }
   let(:key) { '&key=' + String(Testrail.config.api_key) }
-  let(:options) { Testrail.config.headers }
+  let(:headers) { Testrail.config.headers }
   let(:body) {
     {
-      body: {
-        an_object: {
-          param1: 'a value',
-          param2: 'another value',
-          param3: 42
-        }
+      an_object: {
+        param1: 'a value',
+        param2: 'another value',
+        param3: 42
       }
     }
   }
-  let(:post_options) { options.merge(body) }
+  let(:post_options) { { headers: headers, body: body} }
+  let(:get_options)  { { headers: headers} }
 
   shared_examples_for "a correct HTTPclient messenger" do
     describe "interface" do
@@ -59,7 +58,7 @@ describe Testrail::Request do
     describe "shared behaviors" do
       it_should_behave_like "a correct HTTPclient messenger" do
         let(:method) { :get }
-        let(:action_options) { options }
+        let(:action_options) { get_options }
       end
     end
   end
