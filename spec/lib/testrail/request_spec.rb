@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Testrail::Request do
   subject { Testrail::Request }
-  let(:url_prefix) { Testrail.config.server + Testrail.config.api_path }
+  let(:command) { 'a_command' }
+  let(:url_prefix) { Testrail.config.server + Testrail.config.api_path + command }
   let(:key) { '&key=' + String(Testrail.config.api_key) }
   let(:options) { Testrail.config.headers }
   let(:body) {
@@ -15,14 +16,13 @@ describe Testrail::Request do
     }
   }
   let(:post_options) { options.merge(body) }
-  let(:command) { 'a_command' }
 
   shared_examples_for "a correct HTTPclient messenger" do
     describe "interface" do
       before do
-        stub_request(:any, 'https://example.testrail.com/index.php?/miniapi/a_command&key=').to_return(body: JSON.generate({result: true, an_object: 'abc'}))
-        stub_request(:any, 'https://example.testrail.com/index.php?/miniapi/a_command/789&key=').to_return(body: JSON.generate({result: true, an_object: 'abc'}))
-        stub_request(:any, 'https://example.testrail.com/index.php?/miniapi/a_command/789/a4g8&key=').to_return(body: JSON.generate({result: true, an_object: 'abc'}))
+        stub_request(:any, url_prefix + key).to_return(body: JSON.generate({result: true, an_object: 'abc'}))
+        stub_request(:any, url_prefix + '/789' + key).to_return(body: JSON.generate({result: true, an_object: 'abc'}))
+        stub_request(:any, url_prefix + '/789/a4g8' + key).to_return(body: JSON.generate({result: true, an_object: 'abc'}))
       end
 
       it "returns a Testrail::Response object" do
@@ -33,21 +33,21 @@ describe Testrail::Request do
       context "with no ids" do
         it "should call the HTTPclient with the correct parameters" do
           subject.send(method, command, nil, action_options)
-          WebMock.should have_requested(method, url_prefix + command + key)
+          WebMock.should have_requested(method, url_prefix + key)
         end
       end
       
       context "with a single id" do
         it "should call the HTTPclient with the correct parameters" do
           subject.send(method, command, 789, action_options)
-          WebMock.should have_requested(method, url_prefix + command + '/789' + key)
+          WebMock.should have_requested(method, url_prefix + '/789' + key)
         end
       end
       
       context "with multiple ids" do
         it "should call the HTTPclient with the correct parameters" do
           subject.send(method, command, [789, 'a4g8'], action_options)
-          WebMock.should have_requested(method, url_prefix + command + '/789/a4g8' + key)
+          WebMock.should have_requested(method, url_prefix + '/789/a4g8' + key)
         end
       end
     end
