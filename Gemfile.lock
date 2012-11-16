@@ -45,4 +45,4 @@ DEPENDENCIES
   rdoc (~> 3.12)
   rspec (~> 2.8.0)
   simplecov
-  webmock
+  webmock (~> 1.9.0)

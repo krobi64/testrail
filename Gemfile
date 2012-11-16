@@ -10,6 +10,6 @@ group :development do
   gem "rdoc", "~> 3.12"
   gem "bundler", "~> 1.1.3"
   gem "jeweler", "~> 1.8.4"
-  gem "webmock"
+  gem "webmock", "~> 1.9.0"
   gem "simplecov", ">= 0"
 end
