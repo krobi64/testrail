@@ -17,7 +17,7 @@ Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "testrail"
   gem.version = Testrail::VERSION
-  gem.homepage = "http://github.com/krobi64/testrail"
+  gem.homepage = "http://github.com/kris-at-tout/testrail"
   gem.license = "MIT"
   gem.summary = "A Ruby client library for TestRail"
   gem.description = <<-EOS
