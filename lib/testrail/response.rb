@@ -18,15 +18,13 @@ module Testrail
 
     private
     def parse_payload
-      result_body = JSON.parse(http_response.body) rescue nil
-      if result_body
-        @success = result_body.delete('result') rescue nil
-        @payload = @success ? result_body : nil
-        @error = result_body.delete('error') rescue nil
-      else
-        @success = false
-        @error = "Malformed JSON response.\n Received #{http_response.body}"
-      end
+      result_body = JSON.parse(http_response.body)
+      @success = result_body.key?('result') ? result_body.delete('result') : nil
+      @payload = @success ? result_body : nil
+      @error = result_body.key?('error') ? result_body.delete('error') : nil
+    rescue JSON::ParserError => e
+      @success = false
+      @error = "Malformed JSON response.\n Received #{http_response.body}"
     end
 
     def parse_error

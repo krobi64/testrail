@@ -11,13 +11,49 @@ module Testrail
     def self.get(*args)
       command, ids, opts = parse_args(*args)
       url = build_command(command, ids)
-      Testrail::Response.new(super(url, opts))
+      attempts = 0
+      begin
+        attempts += 1
+        response = Testrail::Response.new(super(url, opts))
+      rescue TimeoutError => error
+        retry if attempts < 3
+        unless Testrail.logger.nil?
+          Testrail.logger.error "Timeout connecting to GET #{url}"
+          Testrail.logger.error error
+        end
+        raise error
+      rescue Exception => error
+        unless Testrail.logger.nil?
+          Testrail.logger.error "Unexpected exception intercepted calling TestRail"
+          Testrail.logger.error error
+        end
+        raise error
+      end
+      response
     end
 
     def self.post(*args)
       command, ids, opts = parse_args(*args)
       url = build_command(command, ids)
-      Testrail::Response.new(super(url, opts))
+      attempts = 0
+      begin
+        attempts += 1
+        response = Testrail::Response.new(super(url, opts))
+      rescue TimeoutError => error
+        retry if attempts < 3
+        unless Testrail.logger.nil?
+          Testrail.logger.error "Timeout connecting to POST #{url}"
+          Testrail.logger.error error
+        end
+        raise error
+      rescue Exception => error
+        unless Testrail.logger.nil?
+          Testrail.logger.error "Unexpected exception intercepted calling TestRail"
+          Testrail.logger.error error
+        end
+        raise error
+      end
+      response
     end
 
     private
