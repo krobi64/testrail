@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristine Robison"]
-  s.date = "2012-11-13"
+  s.date = "2012-11-16"
   s.description = "        A Ruby client that tries to match TestRail's API one-to-one, while still\n        providing an idiomatic interface.\n"
   s.email = "krobison@gmail.com"
   s.extra_rdoc_files = [
@@ -39,10 +39,11 @@ Gem::Specification.new do |s|
     "spec/lib/testrail/request_spec.rb",
     "spec/lib/testrail/response_spec.rb",
     "spec/lib/testrail/version_spec.rb",
+    "spec/lib/testrail_spec.rb",
     "spec/spec_helper.rb",
     "testrail.gemspec"
   ]
-  s.homepage = "http://github.com/krobi64/testrail"
+  s.homepage = "http://github.com/kris-at-tout/testrail"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
@@ -57,7 +58,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, ["~> 1.1.3"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_development_dependency(%q<webmock>, [">= 0"])
+      s.add_development_dependency(%q<webmock>, ["~> 1.9.0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
     else
       s.add_dependency(%q<httparty>, [">= 0"])
@@ -65,7 +66,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, ["~> 1.1.3"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_dependency(%q<webmock>, [">= 0"])
+      s.add_dependency(%q<webmock>, ["~> 1.9.0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
     end
   else
@@ -74,7 +75,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, ["~> 1.1.3"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-    s.add_dependency(%q<webmock>, [">= 0"])
+    s.add_dependency(%q<webmock>, ["~> 1.9.0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
   end
 end
