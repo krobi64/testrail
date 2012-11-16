@@ -3,5 +3,7 @@ Dir["#{File.dirname(__FILE__)}/testrail/**/*.rb"].each do |f|
 end
 
 module Testrail
-  
+  def self.logger
+    Testrail.config.logger
+  end
 end

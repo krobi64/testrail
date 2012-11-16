@@ -1,17 +1,17 @@
-require 'yaml'
+require 'logger'
 
 module Testrail
 
   def self.configure(&block)
-    @config = Config.new(&block).config
+    @config = Config.new &block
   end
 
   def self.config
-    @config ||= Config.new.config
+    @config ||= Config.new
   end
 
   class Config
-    attr_accessor :headers, :server, :api_path, :api_key
+    attr_accessor :headers, :server, :api_path, :api_key, :logger
 
     def initialize(&block)
       default_config
@@ -25,10 +25,7 @@ module Testrail
       @server = "https://example.testrail.com"
       @api_path = "/index.php?/miniapi/"
       @api_key = nil
-    end
-
-    def config
-      self
+      @logger = Logger.new STDOUT
     end
   end
 end
