@@ -3,6 +3,38 @@
 A Ruby client that tries to match TestRail's API one-to-one, while still
 providing an idiomatic interface.
 
+== Installation
+
+    gem install testrail
+
+== Configuration
+
+By default, Testrail's configuration points to their hosted service. You can set your api_key in either of the following ways:
+
+    Testrail.config.api_key = 'my_api_key'
+
+    Testrail.configure do |c|
+      c.api_key = 'my_api_key'
+    end
+
+Configuration options [defaults] include:
+* server: the location of the TestRail application. ['https://example.testrail.com']
+* api_path: the path on the server that provides the api. ['/index.php?/miniapi/']
+* api_key: the api_key required to access the TestRail application. [nil]
+* logger:  the logging instance to use for capturing log messages. [Logger.new]
+
+== Usage
+
+    client = Testrail::Client.new
+    response = client.add_case(<section_id>, body: {
+      title: "A New Test",
+      priority_id: 4,
+      references: 'url_to_issue_tracker'
+    })
+    
+    test_id = response.payload if response.success
+    error = response.error unless response.success
+
 == Contributing to testrail
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
