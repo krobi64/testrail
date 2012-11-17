@@ -5,7 +5,6 @@ providing an idiomatic interface.
 
 == Installation
 
-    gem install testrail
 
 == Configuration
 
