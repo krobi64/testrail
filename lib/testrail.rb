@@ -1,4 +1,4 @@
-Dir["#{File.dirname(__FILE__)}/testrail/**/*.rb"].each do |f|
+Dir[File.join(File.dirname(__FILE__), 'testrail', '*.rb')].each do |f|
   require f
 end
 
