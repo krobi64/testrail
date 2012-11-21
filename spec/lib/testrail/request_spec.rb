@@ -1,24 +1,7 @@
 require 'spec_helper'
-require 'net/http'
 
 describe Testrail::Request do
   subject { Testrail::Request }
-  let(:server) { Testrail.config.server + Testrail.config.api_path }
-  let(:command) { 'a_command' }
-  let(:url_prefix) { server + command }
-  let(:key) { '&key=' + String(Testrail.config.api_key) }
-  let(:headers) { Testrail.config.headers }
-  let(:body) {
-    {
-      an_object: {
-        param1: 'a value',
-        param2: 'another value',
-        param3: '42'
-      }
-    }
-  }
-  let(:post_options) { { headers: headers.merge({"Content-Type" => "application/x-www-form-urlencoded"}), body: body} }
-  let(:get_options)  { { headers: headers} }
 
   shared_examples_for "a valid HTTPclient request" do
     describe "interface" do

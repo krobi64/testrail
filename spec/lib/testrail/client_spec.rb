@@ -2,20 +2,6 @@ require 'spec_helper'
 
 describe Testrail::Client do
   subject { Testrail::Client.new }
-  let(:url_prefix) { Testrail.config.server + Testrail.config.api_path }
-  let(:key) { '&key=' + String(Testrail.config.api_key) }
-  let(:headers) { Testrail.config.headers }
-  let(:body) {
-    {
-      an_object: {
-        param1: 'a value',
-        param2: 'another value',
-        param3: '42'
-      }
-    }
-  }
-  let(:post_options) { {body: body, headers: headers.merge({"Content-Type" => "application/x-www-form-urlencoded"})} }
-  let(:get_options) { {headers: headers} }
 
   describe "initialize" do
     it "assigns Testrail::Request to @request" do
@@ -26,7 +12,7 @@ describe Testrail::Client do
   shared_examples_for "an api call" do
     before do
       @parsed_ids = ids.empty? ? '' : '/' + [ids].flatten.join('/')
-      stub_request(expected_method, url_prefix + command.to_s + @parsed_ids + key).
+      stub_request(expected_method, url_prefix(command.to_s) + @parsed_ids + key).
               with(body:    opts[:body], 
                    headers: opts[:headers]).
               to_return(status: 200, body: JSON.generate({result: true, an_object: 'abc'}, headers: {}))
@@ -43,7 +29,7 @@ describe Testrail::Client do
 
     context "successful interaction" do
       it "calls WebMock with the appropriate method " do
-        WebMock.should have_requested(expected_method, url_prefix + command.to_s + @parsed_ids + key).with(opts)
+        WebMock.should have_requested(expected_method, url_prefix(command.to_s) + @parsed_ids + key).with(opts)
       end
 
       it "should return Testrail::Response with success set to true" do

@@ -22,7 +22,7 @@ module Testrail
       @success = result_body.key?('result') ? result_body.delete('result') : nil
       @payload = @success ? result_body : nil
       @error = result_body.key?('error') ? result_body.delete('error') : nil
-    rescue JSON::ParserError => e
+    rescue JSON::ParserError
       @success = false
       @error = "Malformed JSON response.\n Received #{http_response.body}"
     end
