@@ -9,22 +9,21 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristine Robison"]
-  s.date = "2012-11-16"
+  s.date = "2012-11-27"
   s.description = "        A Ruby client that tries to match TestRail's API one-to-one, while still\n        providing an idiomatic interface.\n"
   s.email = "krobison@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.rdoc"
+    "README.md"
   ]
   s.files = [
     ".document",
     ".rspec",
-    ".rvmrc",
-    ".simplecov",
+    ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
-    "README.rdoc",
+    "README.md",
     "Rakefile",
     "lib/testrail.rb",
     "lib/testrail/client.rb",
@@ -41,6 +40,7 @@ Gem::Specification.new do |s|
     "spec/lib/testrail/version_spec.rb",
     "spec/lib/testrail_spec.rb",
     "spec/spec_helper.rb",
+    "spec/support/http_values.rb",
     "testrail.gemspec"
   ]
   s.homepage = "http://github.com/kris-at-tout/testrail"
