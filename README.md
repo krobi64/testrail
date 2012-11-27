@@ -1,12 +1,12 @@
-= testrail {<img src="https://travis-ci.org/kris-at-tout/testrail.png" />}[https://travis-ci.org/kris-at-tout/testrail]
+# testrail [![Travis Status](https://travis-ci.org/kris-at-tout/testrail.png)](https://travis-ci.org/kris-at-tout/testrail) 
 
 A Ruby client that tries to match TestRail's API one-to-one, while still
 providing an idiomatic interface.
 
-== Installation
+## Installation
+    gem install testrail
 
-
-== Configuration
+## Configuration
 
 By default, Testrail's configuration points to their hosted service. You can set your api_key in either of the following ways:
 
@@ -22,7 +22,7 @@ Configuration options [defaults] include:
 * api_key: the api_key required to access the TestRail application. [nil]
 * logger:  the logging instance to use for capturing log messages. [Logger.new]
 
-== Usage
+## Usage
 
     client = Testrail::Client.new
     response = client.add_case(<section_id>, body: {
@@ -34,7 +34,11 @@ Configuration options [defaults] include:
     test_id = response.payload if response.success
     error = response.error unless response.success
 
-== Contributing to testrail
+# ToDo
+
+* Add Testrail specific objects to represent the Testrail domain.
+
+# Contributing to testrail
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
@@ -44,7 +48,7 @@ Configuration options [defaults] include:
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2012 Kristine Robison. See LICENSE.txt for
 further details.
