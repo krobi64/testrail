@@ -6,6 +6,10 @@ providing an idiomatic interface.
 ## Installation
     gem install testrail
 
+or in Gemfile
+
+    gem "testrail"
+
 ## Configuration
 
 By default, Testrail's configuration points to their hosted service. You can set your api_key in either of the following ways:
