@@ -1,5 +1,4 @@
 require 'httparty'
-require 'testrail/command_helper'
 
 module Testrail
   class Request
