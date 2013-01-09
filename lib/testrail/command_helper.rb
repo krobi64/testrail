@@ -1,6 +1,6 @@
 module Testrail
   module CommandHelper
-    def build_command(command, ids = nil)
+    def build_url(command, ids = nil)
       command = Testrail.config.server + Testrail.config.api_path + command
       unless ids.nil?
         ids = '/' + [ids].flatten.join('/')

@@ -17,26 +17,26 @@ describe Testrail::Request do
             with(action_options).
             to_return(body: JSON.generate({result: true, an_object: 'abc'}))
         end
-    
+
         it "returns a Testrail::Response object" do
           result = subject.send(method, command, action_options)
           result.should be_instance_of Testrail::Response
         end
-    
+
         context "with no ids" do
           it "should call the HTTPclient with the correct parameters" do
             subject.send(method, command, action_options)
             WebMock.should have_requested(method, url_prefix + key)
           end
         end
-    
+
         context "with a single id" do
           it "should call the HTTPclient with the correct parameters" do
             subject.send(method, command, 789, action_options)
             WebMock.should have_requested(method, url_prefix + '/789' + key)
           end
         end
-    
+
         context "with multiple ids" do
           it "should call the HTTPclient with the correct parameters" do
             subject.send(method, command, [789, 'a4g8'], action_options)

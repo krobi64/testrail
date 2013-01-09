@@ -9,10 +9,10 @@ describe Testrail::CommandHelper do
   let(:key) { '&key=' + String(Testrail.config.api_key) }
   let(:url_prefix) { Testrail.config.server + Testrail.config.api_path}
 
-  describe ".build_command" do
+  describe ".build_url" do
     context "with nil id" do
       before do
-        @command = subject.build_command('a_command')
+        @command = subject.build_url('a_command')
       end
 
       it "creates a valid URL" do
@@ -22,7 +22,7 @@ describe Testrail::CommandHelper do
 
     context "with a single id" do
       before do
-        @command = subject.build_command('a_command', 235)
+        @command = subject.build_url('a_command', 235)
       end
 
       it "creates a valid URL" do
@@ -32,7 +32,7 @@ describe Testrail::CommandHelper do
 
     context "with an array of ids" do
       before do
-        @command = subject.build_command('a_command', [235, 'ax45'])
+        @command = subject.build_url('a_command', [235, 'ax45'])
       end
 
       it "creates a valid URL" do
