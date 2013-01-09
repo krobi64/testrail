@@ -55,7 +55,6 @@ describe Testrail do
         before do
           @new_server = new_server = 'http://localhost'
           @new_api_path = new_api_path = '/some_path/'
-          debugger
           subject.configure do |config|
             config.server = new_server
             config.api_path = new_api_path
@@ -105,7 +104,7 @@ describe Testrail do
           subject.configure
         end
       end
-      
+
       context "with custom settings" do
         before do
           @mock_logger = mock_logger = mock('A Different Logger')
