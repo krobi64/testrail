@@ -1,5 +1,5 @@
 module Testrail
-  class Project < Testrail::BaseModel
+  class Project < Testrail::Base
     validates :id, :name, presence: true
 
     def suites

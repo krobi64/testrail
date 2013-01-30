@@ -3,7 +3,7 @@ require 'active_support/core_ext'
 require 'json'
 
 module Testrail
-  class BaseModel
+  class Base
     include ActiveModel::Validations
     extend ActiveModel::Naming
     include Testrail::ClassHelper

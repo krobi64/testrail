@@ -5,20 +5,20 @@ describe Testrail::Project do
   subject { Testrail::Project }
 
   def valid_attributes(i)
-    {"id" => i, 
+    {"id" => i,
       "name" => "TestProject #{i}",
     }
   end
 
   def valid_suite_attributes(i)
-    {"id" => i, 
+    {"id" => i,
       "name" => "TestSuite #{i}",
       "description" => nil
     }
   end
 
   describe "shared behaviors" do
-    it_should_behave_like 'a Testrail::BaseModel object' do
+    it_should_behave_like 'a Testrail::Base object' do
       let(:subject) { Testrail::Project }
       let(:attributes) { valid_attributes(13) }
       let(:expected_json) { JSON.generate( { project: {id: 13, name: 'TestProject 13'} } ) }
@@ -152,11 +152,11 @@ describe Testrail::Project do
     #   before do
     #     @result = @project.suites
     #   end
-    # 
+    #
     #   it "returns an Array" do
     #     @result.should be_instance_of Array
     #   end
-    #   
+    #
     # end
   end
 end

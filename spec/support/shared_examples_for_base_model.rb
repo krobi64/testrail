@@ -1,4 +1,4 @@
-shared_examples 'a Testrail::BaseModel object' do
+shared_examples 'a Testrail::Base object' do
   describe "initialize" do
     context "with unknown attributes" do
       before do
@@ -30,7 +30,7 @@ shared_examples 'a Testrail::BaseModel object' do
 
     it "generates correct json" do
       @object_json.should eq(expected_json)
-    end    
+    end
   end
 
   describe "#to_h"
