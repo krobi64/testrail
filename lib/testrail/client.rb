@@ -31,7 +31,7 @@ module Testrail
     end
 
     def get_cases(suite_id, section_id, opts = {})
-      request.get('get_cases', [suite_id, section_id], opts)
+      request.get('get_cases', suite_id, section_id, opts)
     end
 
     def add_case(section_id, opts = {})
