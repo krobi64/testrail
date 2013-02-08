@@ -1,4 +1,4 @@
-# testrail [![Travis Status](https://travis-ci.org/kris-at-tout/testrail.png)](https://travis-ci.org/kris-at-tout/testrail) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/kris-at-tout/testrail)
+# testrail [![Travis Status](https://travis-ci.org/kris-at-tout/testrail.png)](https://travis-ci.org/kris-at-tout/testrail) [![Code Climate](https://codeclimate.com/github/krobi64/testrail.png)](https://codeclimate.com/github/krobi64/testrail)
 
 A Ruby client that tries to match TestRail's API one-to-one, while still
 providing an idiomatic interface.
