@@ -29,10 +29,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '~> 3.1'
 
   s.add_development_dependency 'rake',         '~> 10.0.3'
-  s.add_development_dependency 'rspec',        '~> 2.8.0'
+  s.add_development_dependency 'rspec',        '~> 2.13.0'
   s.add_development_dependency 'debugger',     '~> 1.5.0'
-  s.add_development_dependency 'rdoc',         '~> 3.12.2'
-  s.add_development_dependency 'webmock',      '~> 1.9.3'
+  s.add_development_dependency 'rdoc',         '~> 4.0.1'
+  s.add_development_dependency 'webmock',      '~> 1.11.0'
   s.add_development_dependency 'simplecov',    '~> 0.7.1'
 end
 
