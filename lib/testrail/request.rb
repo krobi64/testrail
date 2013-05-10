@@ -24,23 +24,24 @@ module Testrail
       url = build_url(command, ids)
       attempts = 0
       begin
-        attempts += 1
         response = Testrail::Response.new(HTTParty.send(method, url, opts))
       rescue TimeoutError => error
+        attempts += 1
         retry if attempts < 3
-        unless Testrail.logger.nil?
-          Testrail.logger.error "Timeout connecting to #{method.to_s.upcase} #{url}"
-          Testrail.logger.error error
-        end
+        log_error error, "Timeout connecting to #{method.to_s.upcase} #{url}"
         raise error
       rescue Exception => error
-        unless Testrail.logger.nil?
-          Testrail.logger.error "Unexpected exception intercepted calling TestRail"
-          Testrail.logger.error error
-        end
+        log_error error, "Unexpected exception intercepted calling TestRail"
         raise error
       end
       response
+    end
+    
+    def self.log_error(error, message)
+      unless Testrail.logger.nil?
+        Testrail.logger.error message
+        Testrail.logger.error error
+      end
     end
 
     def self.parse_args(*args)
