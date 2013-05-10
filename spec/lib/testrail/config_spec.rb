@@ -13,7 +13,8 @@ describe Testrail do
     context "without a block" do
       before do
         @default_config = subject.config.dup
-        @actual_config = subject.configure
+        subject.configure
+        @actual_config = subject.config
       end
 
       it "returns the default configuration" do
@@ -27,9 +28,10 @@ describe Testrail do
     context "with a block" do
       before do
         @default_config = subject.config.dup
-        @new_config = subject.configure { |config|
+        subject.configure { |config|
           config.server = 'localhost'
         }
+        @new_config = subject.config
       end
 
       it "overrides specified settings" do

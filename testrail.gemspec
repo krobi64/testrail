@@ -25,7 +25,8 @@ Gem::Specification.new do |s|
   s.files            = Dir['lib/**/*'] + ['Gemfile', 'Rakefile', 'README.md', 'LICENSE.txt']
   s.test_files       = Dir['spec/**/*']
   
-  s.add_dependency 'httparty',     '~> 0.11.0'
+  s.add_dependency 'httparty',      '~> 0.11.0'
+  s.add_dependency 'activesupport', '~> 3.1'
 
   s.add_development_dependency 'rake',         '~> 10.0.3'
   s.add_development_dependency 'rspec',        '~> 2.8.0'
