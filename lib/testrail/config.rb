@@ -1,9 +1,11 @@
 require 'logger'
+require 'active_support/configurable'
 
 module Testrail
 
   def self.configure(&block)
-    @config = Config.new &block
+    @config = Config.new
+    yield @config if block_given?
   end
 
   def self.config
@@ -11,21 +13,21 @@ module Testrail
   end
 
   class Config
-    attr_accessor :headers, :server, :api_path, :api_key, :logger
+    include ActiveSupport::Configurable
+    config_accessor :headers, :server, :api_path, :api_key, :logger
 
-    def initialize(&block)
+    def initialize
       default_config
-      instance_eval(&block) if block_given?
     end
 
     def default_config
-      @headers = {
+      self.headers = {
         "Accept" => "application/json"
       }
-      @server = "https://example.testrail.com"
-      @api_path = "/index.php?/miniapi/"
-      @api_key = nil
-      @logger = Logger.new STDOUT
+      self.server = "https://example.testrail.com"
+      self.api_path = "/index.php?/miniapi/"
+      self.api_key = nil
+      self.logger = Logger.new STDOUT
     end
   end
 end

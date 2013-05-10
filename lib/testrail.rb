@@ -1,6 +1,7 @@
-Dir[File.join(File.dirname(__FILE__), 'testrail', '*.rb')].each do |f|
-  require f
-end
+require 'testrail/config'
+require 'testrail/request'
+require 'testrail/response'
+require 'testrail/client'
 
 module Testrail
   def self.logger
