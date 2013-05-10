@@ -1,37 +1,15 @@
-# encoding: utf-8
-
-require 'rubygems'
-require 'bundler'
+#!/usr/bin/env rake
 begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
+  require 'bundler/setup'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
 end
-require 'rake'
 
-require 'jeweler'
-require_relative './lib/testrail/version'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "testrail"
-  gem.version = Testrail::VERSION
-  gem.homepage = "http://github.com/kris-at-tout/testrail"
-  gem.license = "MIT"
-  gem.summary = "A Ruby client library for TestRail"
-  gem.description = <<-EOS
-        A Ruby client that tries to match TestRail's API one-to-one, while still
-        providing an idiomatic interface.
-      EOS
-  gem.email = "krobison@gmail.com"
-  gem.authors = ["Kristine Robison"]
-  # dependencies defined in Gemfile
-end
-Jeweler::RubygemsDotOrgTasks.new
+Bundler::GemHelper.install_tasks
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
+desc "Run all specs in spec directory"
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
@@ -43,12 +21,18 @@ end
 
 task :default => :spec
 
-require 'rdoc/task'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+begin
+  require 'rdoc/task'
+rescue LoadError
+  require 'rdoc/rdoc'
+  require 'rake/rdoctask'
+  RDoc::Task = Rake::RDocTask
+end
 
+RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "testrail #{version}"
-  rdoc.rdoc_files.include('README*')
+  rdoc.title    = 'Testrail'
+  rdoc.options << '--line-numbers'
+  rdoc.rdoc_files.include('README.md')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
